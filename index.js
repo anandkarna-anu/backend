@@ -130,6 +130,30 @@ app.delete('/api/persons/:id', (request,response)=>{
    persons = persons.filter(person => person.id !== id )
   response.status(204).end()
 })
+
+const generatePersonId = () => {
+  const maxId = persons.length > 0 ?
+   Math.max(...persons.map(person => person.id = id)) : 0
+   return String(maxId + 1)
+} 
+
+app.post('/api/persons', (request,response) => {
+   const body = request.body
+   if (body.content){
+    const person = {
+      id : generatePersonId(),
+      name : body.name,
+      number : body.number
+    }
+   persons = persons.concat(person)
+    response.json(person)
+   }
+   else{
+response.status(400).json({error:'Empty body request'})
+   }
+})
+
+
 const PORT= 3001
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`)

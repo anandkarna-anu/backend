@@ -112,6 +112,10 @@ app.delete('/api/notes/:id', (request, response) => {
   response.status(204).end();
 });
 
+app.get('/api/persons/5',(request,response)=> {
+  response.status(404).send(`looks like there is no data for the given id`)
+})
+
 app.get('/api/persons', (request,response)=> {
   response.json(lists)
 })

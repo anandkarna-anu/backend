@@ -115,7 +115,11 @@ app.delete('/api/notes/:id', (request, response) => {
 app.get('/api/persons', (request,response)=> {
   response.json(lists)
 })
-
+app.get('/info',(request,response)=>{
+  const date = new Date();
+  response.send( `<p>Phonebook has info for 2 people</p>
+     <p>${date}</p>`)
+})
 const PORT= 3001
 app.listen(PORT, ()=>{
     console.log(`Server running on port ${PORT}`)

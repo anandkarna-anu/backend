@@ -98,13 +98,6 @@ app.post('/api/notes', (request, response)=> {
   response.json(note)
 })
 
-app.post('/api/notes', (request,response)=>{
-const maxId = notes.length > 0 ? Math.max(...notes.map(n=> Number(n.id))):0
-  const note = request.body
-  note.id = String(maxId + 1)
-  notes = notes.concat(note)
-  response.json(note)
-})
 
 app.delete('/api/notes/:id', (request, response) => {
   const id = request.params.id; // It's already a string

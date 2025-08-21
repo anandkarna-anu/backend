@@ -133,25 +133,42 @@ app.delete('/api/persons/:id', (request,response)=>{
 
 const generatePersonId = () => {
   const maxId = persons.length > 0 ?
-   Math.max(...persons.map(person => person.id = id)) : 0
+   Math.max(...persons.map(person => Number(person.id))) : 0
    return String(maxId + 1)
 } 
+   app.post('/api/persons', (request, response) => {
+  const body = request.body;
 
-app.post('/api/persons', (request,response) => {
-   const body = request.body
-   if (body.content){
-    const person = {
-      id : generatePersonId(),
-      name : body.name,
-      number : body.number
-    }
-   persons = persons.concat(person)
-    response.json(person)
-   }
-   else{
-response.status(400).json({error:'Empty body request'})
-   }
-})
+  // Empty body proof
+  if (!body || Object.keys(body).length === 0) {
+    return response.status(400).json({ error: "body is missing" });
+  }
+
+  // Missing name
+  if (!body.name) {
+    return response.status(400).json({ error: "name is missing" });
+  }
+
+  // Missing number
+  if (!body.number) {
+    return response.status(400).json({ error: "number is missing" });
+  }
+
+  // Duplicate name
+  const existing = persons.find(person => person.name === body.name);
+  if (existing) {
+    return response.status(400).json({ error: "name must be unique" });
+  }
+
+  // If all checks pass, add the person
+  const person = {
+    id: generatePersonId(),
+    name: body.name,
+    number: body.number
+  };
+  persons = persons.concat(person);
+  response.json(person);
+});
 
 
 const PORT= 3001

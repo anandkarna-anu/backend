@@ -4,8 +4,14 @@ const app = express()
 app.use(express.json())
 
 const cors= require('cors')
+
+// It's better to allow multiple origins for different environments (e.g., production and local development)
+const allowedOrigins = [
+  'https://notesapp-frontend-alpha.vercel.app', // Your production frontend
+  'http://localhost:3000', // A common port for local development
+];
 const corsOptions = {
-  origin: 'https://notesapp-frontend-alpha.vercel.app/'
+  origin: allowedOrigins
 }
 app.use(cors(corsOptions))
 

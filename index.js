@@ -7,8 +7,9 @@ const cors= require('cors')
 
 // It's better to allow multiple origins for different environments (e.g., production and local development)
 const allowedOrigins = [
-  'https://notesapp-six-nu.vercel.app/', // Your production frontend
+  'https://notesapp-six-nu.vercel.app', // Your production frontend
   'http://localhost:3000', // A common port for local development
+  'http://localhost:5173'
 ];
 const corsOptions = {
   origin: allowedOrigins

@@ -4,13 +4,13 @@ This project is a simple backend server built with Node.js and Express.
 
 ## Live Link
 
-[Your Live Link Here](your-live-link-url)
+https://backend-qt49.onrender.com
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/anandkarna-anu/backend
    ```
 2. Install the dependencies:
    ```bash

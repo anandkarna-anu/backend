@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors'); // 1. Import cors
 const app = express();
 const morgan = require('morgan');
+app.use(express.json());
 
 // 2. Define your allowed origins
 const allowedOrigins = [
@@ -186,6 +187,71 @@ const unknownEndPoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" })
 }
 app.use(unknownEndPoint)
+
+// NEW: PUT endpoint for updating a person
+app.put('/api/persons/:id', (request, response) => {
+  const id = request.params.id;
+  const body = request.body;
+
+  // Find the person to update
+  const personIndex = persons.findIndex(person => person.id === id);
+  
+  if (personIndex === -1) {
+    return response.status(404).json({ error: 'person not found' });
+  }
+
+  // Validation
+  if (!body.name) {
+    return response.status(400).json({ error: "name is missing" });
+  }
+  if (!body.number) {
+    return response.status(400).json({ error: "number is missing" });
+  }
+
+  // Check for duplicate name (exclude current person)
+  const existingPerson = persons.find(p => p.name === body.name && p.id !== id);
+  if (existingPerson) {
+    return response.status(400).json({ error: "name must be unique" });
+  }
+
+  // Update the person
+  const updatedPerson = {
+    id: id,
+    name: body.name,
+    number: body.number
+  };
+
+  persons[personIndex] = updatedPerson;
+  response.json(updatedPerson);
+});
+
+// NEW: PUT endpoint for updating a note
+app.put('/api/notes/:id', (request, response) => {
+  const id = request.params.id;
+  const body = request.body;
+
+  // Find the note to update
+  const noteIndex = notes.findIndex(note => note.id === id);
+  
+  if (noteIndex === -1) {
+    return response.status(404).json({ error: 'note not found' });
+  }
+
+  // Validation
+  if (!body.content) {
+    return response.status(400).json({ error: 'content missing' });
+  }
+
+  // Update the note
+  const updatedNote = {
+    id: id,
+    content: body.content,
+    important: body.important !== undefined ? body.important : notes[noteIndex].important
+  };
+
+  notes[noteIndex] = updatedNote;
+  response.json(updatedNote);
+});
 
 
 const PORT = process.env.PORT || 3001

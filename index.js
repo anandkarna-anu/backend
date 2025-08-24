@@ -257,3 +257,12 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+//No Error Handling:
+// If API fails, users see nothing (empty page)
+// No loading states or error messages
+
+// i want to inform "Please just hang by for 30 seconds or a bit more, a cold start has been initiated for my backend -- Render's free
+// tier service" image -- kungfu panda cutu
+
+//

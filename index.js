@@ -14,6 +14,7 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log('Request from origin:', origin);
     // The 'origin' is the URL of the site making the request
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); // Allow the request

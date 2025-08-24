@@ -182,12 +182,6 @@ app.delete('/api/notes/:id', (request, response) => {
   response.status(204).end();
 });
 
-
-const unknownEndPoint = (request, response) => {
-  response.status(404).send({ error: "unknown endpoint" })
-}
-app.use(unknownEndPoint)
-
 // NEW: PUT endpoint for updating a person
 app.put('/api/persons/:id', (request, response) => {
   const id = request.params.id;
@@ -252,6 +246,11 @@ app.put('/api/notes/:id', (request, response) => {
   notes[noteIndex] = updatedNote;
   response.json(updatedNote);
 });
+
+const unknownEndPoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" })
+}
+app.use(unknownEndPoint)
 
 
 const PORT = process.env.PORT || 3001

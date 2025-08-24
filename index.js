@@ -9,7 +9,8 @@ const allowedOrigins = [
   'http://localhost:5173', // Vite's default local dev port
   'https://notesapp-frontend-git-main-anandkarna-anus-projects.vercel.app',
   'https://notesapp-frontend-anandkarna-anus-projects.vercel.app',
-  'https://notesapp-frontend-alpha.vercel.app' // Your deployed frontend URL
+  'https://notesapp-frontend-alpha.vercel.app',
+  'https://notesapp-frontend-git-main-anandkarna-anus-projects.vercel.app/'// Your deployed frontend URL
 ];
 
 const corsOptions = {

@@ -1,28 +1,27 @@
-const express = require('express')
-const morgan = require('morgan');
-const cors = require('cors');
-
+const express = require('express');
+const cors = require('cors'); // 1. Import cors
 const app = express();
-app.use(express.json());
 
-// CORS configuration
+// 2. Define your allowed origins
 const allowedOrigins = [
-  'https://notesapp-six-nu.vercel.app/',
-  'http://localhost:3000',
-  'http://localhost:5173'
+  'http://localhost:3000', // Your local frontend
+  'http://localhost:5173', // Vite's default local dev port
+  'https://notesapp-frontend-git-main-anandkarna-anus-projects.vercel.app/' // Your deployed frontend URL
 ];
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
+  origin: function (origin, callback) {
+    // The 'origin' is the URL of the site making the request
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS')); // Block the request
     }
   }
 };
 
-app.use(cors(corsOptions));
+// 3. Use cors with your specific options
+app.use(cors(corsOptions)); // <-- Use the options here
 
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));

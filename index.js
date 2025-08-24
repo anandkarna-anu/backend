@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors'); // 1. Import cors
 const app = express();
+const morgan = require('morgan');
 
 // 2. Define your allowed origins
 const allowedOrigins = [

@@ -7,7 +7,7 @@ app.use(express.json());
 
 // CORS configuration
 const allowedOrigins = [
-  'https://notesapp-six-nu.vercel.app',
+  'https://notesapp-six-nu.vercel.app/',
   'http://localhost:3000',
   'http://localhost:5173'
 ];

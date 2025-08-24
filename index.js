@@ -1,20 +1,27 @@
-const express = require('express')
-const morgan = require('morgan')
-const app = express()
-app.use(express.json())
+const morgan = require('morgan');
+const cors = require('cors');
 
-const cors= require('cors')
+const app = express();
+app.use(express.json());
 
-// It's better to allow multiple origins for different environments (e.g., production and local development)
+// CORS configuration
 const allowedOrigins = [
-  'https://notesapp-six-nu.vercel.app', // Your production frontend
-  'http://localhost:3000', // A common port for local development
+  'https://notesapp-six-nu.vercel.app',
+  'http://localhost:3000',
   'http://localhost:5173'
 ];
+
 const corsOptions = {
-  origin: allowedOrigins
-}
-app.use(cors(corsOptions))
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions));
 
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));

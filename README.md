@@ -1,6 +1,6 @@
 # backend
 
-This project is a simple backend server built with Node.js and Express.
+This project is a simple backend server built with Node.js and Expres which works for https://notesapp-frontend-alpha.vercel.app/
 
 ## Live Link
 
